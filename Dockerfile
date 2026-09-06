@@ -58,9 +58,9 @@ RUN composer install \
 # =========================
 # Permissions Symfony
 # =========================
-RUN mkdir -p var/cache var/log \
-    && chown -R www-data:www-data var \
-    && chmod -R 775 var
+RUN mkdir -p var/cache var/log public/uploads \
+    && chown -R www-data:www-data var public/uploads \
+    && chmod -R 775 var public/uploads
 
 # =========================
 # PHP Configuration
