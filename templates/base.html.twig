@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}L'échoppe de Prescy - Bijoux sur mesure{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%236B8E23%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23DEB887%22/></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    
+    {% block stylesheets %}
+    {% endblock %}
+
+    <!-- External JavaScript -->
+    <script src="{{ asset('js/main.js') }}" defer></script>
+    
+    {% block javascripts %}
+    {% endblock %}
+
+    {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
+    {% if frankenphpHotReload %}
+    <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
+    <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
+    <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#hero" class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="L'échoppe de Prescy" onerror="this.style.display='none'; this.nextElementSibling.style.marginLeft='0';">
+                    <span class="logo-text">L'échoppe de Prescy</span>
+                </a>
+                <button class="mobile-menu-toggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav>
+                    <ul>
+                        <li><a href="#hero">Accueil</a></li>
+                        <li><a href="#savoir-faire">L'Artisan</a></li>
+                        <li><a href="#creations">Galerie</a></li>
+                        <li><a href="#atelier">Processus</a></li>
+                        <li><a href="#contact">Nous Contacter</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <h3>{{ contents.footer.footer_brand_name|default("L'échoppe de Prescy") }}</h3>
+                        <p>{{ contents.footer.footer_brand_subtitle|default('Bijouterie artisanale') }}</p>
+                        <p class="footer-tagline">{{ contents.footer.footer_tagline|default('Chaque bijou raconte une histoire') }}</p>
+                        <div class="footer-social">
+                            <a href="https://www.facebook.com/profile.php?id=61578409409953" target="_blank" aria-label="Facebook">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <h4>Navigation</h4>
+                        <ul>
+                            <li><a href="#savoir-faire">L'Artisan</a></li>
+                            <li><a href="#creations">Galerie</a></li>
+                            <li><a href="#atelier">Processus</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-services">
+                        <h4>Services</h4>
+                        <ul>
+                            <li>{{ contents.footer.footer_service_1|default('Création sur mesure') }}</li>
+                            <li>{{ contents.footer.footer_service_2|default('Réparation') }}</li>
+                            <li>{{ contents.footer.footer_service_3|default('Transformation') }}</li>
+                            <li>{{ contents.footer.footer_service_4|default('Gravure') }}</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-contact">
+                        <h4>Contact</h4>
+                        <p><strong>{{ contents.footer.footer_contact_method|default('Facebook Messenger') }}</strong></p>
+                        <p>{{ contents.footer.footer_response_time|default('Réponse sous 24h') }}</p>
+                        <p class="footer-location">{{ contents.footer.footer_location|default('📍 Prescy, France') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; {{ 'now'|date('Y') }} {{ contents.footer.footer_copyright|default("L'échoppe de Prescy. Bijouterie artisanale.") }}</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

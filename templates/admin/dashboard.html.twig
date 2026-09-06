@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block content %}
+<div class="stats">
+    <div class="stat-card">
+        <h3>Total créations</h3>
+        <div class="number">{{ total_creations }}</div>
+    </div>
+    <div class="stat-card">
+        <h3>Catégories</h3>
+        <div class="number">{{ total_categories }}</div>
+    </div>
+    <div class="stat-card">
+        <h3>Demandes en attente</h3>
+        <div class="number">{{ pending_contacts }}</div>
+    </div>
+</div>
+
+<div class="card">
+    <h2 style="margin-bottom: 1.5rem;">Dernières demandes de contact</h2>
+    {% if recent_contacts %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in recent_contacts %}
+            <tr>
+                <td>{{ contact.createdAt|date('d/m/Y H:i') }}</td>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.email }}</td>
+                <td>
+                    {% if contact.status == 'pending' %}
+                        <span class="badge badge-warning">À traiter</span>
+                    {% else %}
+                        <span class="badge badge-success">Traitée</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('admin_contacts') }}" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Voir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Aucune demande de contact pour le moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

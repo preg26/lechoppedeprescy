@@ -1,0 +1,77 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Demande de contact - {{ contact.name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="margin: 0;">Demande de {{ contact.name }}</h2>
+        <a href="{{ path('admin_contacts') }}" class="btn btn-secondary">← Retour à la liste</a>
+    </div>
+
+    <div style="display: grid; gap: 1.5rem;">
+        <div style="background: #F5F5F5; padding: 1rem; border-radius: 6px;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                <div>
+                    <strong style="color: #6B6B6B; font-size: 0.85rem;">Date de réception</strong>
+                    <p style="margin: 0.25rem 0 0 0; font-size: 1rem;">{{ contact.createdAt|date('d/m/Y à H:i') }}</p>
+                </div>
+                <div>
+                    <strong style="color: #6B6B6B; font-size: 0.85rem;">Statut</strong>
+                    <p style="margin: 0.25rem 0 0 0;">
+                        {% if contact.status == 'pending' %}
+                            <span class="badge badge-warning">À traiter</span>
+                        {% else %}
+                            <span class="badge badge-success">Traitée</span>
+                            <br><small>Le {{ contact.processedAt|date('d/m/Y à H:i') }}</small>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <strong style="color: #6B6B6B; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">Nom</strong>
+            <p style="margin: 0; font-size: 1.1rem; font-weight: 500;">{{ contact.name }}</p>
+        </div>
+
+        <div>
+            <strong style="color: #6B6B6B; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">Email</strong>
+            <p style="margin: 0;">
+                <a href="mailto:{{ contact.email }}" style="color: #27715A; text-decoration: none;">{{ contact.email }}</a>
+            </p>
+        </div>
+
+        <div>
+            <strong style="color: #6B6B6B; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">Téléphone</strong>
+            <p style="margin: 0;">
+                {% if contact.phone %}
+                    <a href="tel:{{ contact.phone }}" style="color: #27715A; text-decoration: none;">{{ contact.phone }}</a>
+                {% else %}
+                    <span style="color: #9CA3AF;">Non renseigné</span>
+                {% endif %}
+            </p>
+        </div>
+
+        <div>
+            <strong style="color: #6B6B6B; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">Message</strong>
+            <div style="background: white; border: 1px solid #E0E0E0; border-radius: 6px; padding: 1rem; white-space: pre-wrap; line-height: 1.6;">{{ contact.message }}</div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; padding-top: 1rem; border-top: 1px solid #E0E0E0;">
+            {% if contact.status == 'pending' %}
+                <form method="post" action="{{ path('admin_contact_process', {id: contact.id}) }}">
+                    <button type="submit" class="btn">Marquer comme traitée</button>
+                </form>
+            {% else %}
+                <form method="post" action="{{ path('admin_contact_pending', {id: contact.id}) }}">
+                    <button type="submit" class="btn btn-secondary">Marquer comme à traiter</button>
+                </form>
+            {% endif %}
+            <form method="post" action="{{ path('admin_contact_delete', {id: contact.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette demande ?');">
+                <button type="submit" class="btn" style="background: #DC2626;">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

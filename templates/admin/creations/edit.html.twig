@@ -1,0 +1,84 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Modifier la création{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2 style="margin-bottom: 1.5rem;">Modifier "{{ creation.title }}"</h2>
+    
+    {# Formulaires de suppression d'images (en dehors du formulaire principal) #}
+    {% if creation.images %}
+        {% for image in creation.images %}
+            <form id="delete-form-{{ loop.index }}" method="post" action="{{ path('admin_creation_delete_image', {id: creation.id}) }}" style="display: none;">
+                <input type="hidden" name="image" value="{{ image }}">
+            </form>
+        {% endfor %}
+    {% endif %}
+    
+    <form method="post" enctype="multipart/form-data" id="edit-form">
+        <div class="form-group">
+            <label for="title">Titre *</label>
+            <input type="text" id="title" name="title" value="{{ creation.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Catégorie *</label>
+            <select id="category" name="category" required>
+                {% for cat in categories %}
+                <option value="{{ cat.id }}" {{ cat.id == creation.category.id ? 'selected' : '' }}>{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4">{{ creation.description }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Gestion des images</label>
+            <p style="color: #6B6B6B; margin-bottom: 1rem; font-size: 0.9rem;">
+                📸 Glissez-déposez pour réorganiser • Badge <span style="background: #C9A961; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">NEW</span> = nouvelle image • ✕ pour supprimer
+            </p>
+            
+            <div style="margin-bottom: 1rem;">
+                <label for="images" class="upload-label" style="cursor: pointer;">
+                    <span style="font-size: 1.5rem;">📁</span> Ajouter de nouvelles images
+                </label>
+                <input type="file" id="images" name="images[]" accept="image/*" multiple onchange="addNewImagesToGallery(event)" style="display: none;">
+            </div>
+            
+            <div id="images-container" class="images-sortable">
+                {% if creation.images %}
+                    {% for image in creation.images %}
+                        <div class="image-item" data-image="{{ image }}" data-type="existing">
+                            <div class="image-preview">
+                                <img src="{{ asset('uploads/' ~ image) }}" alt="Image">
+                                <div class="image-overlay">
+                                    <span class="drag-handle">⋮⋮</span>
+                                </div>
+                            </div>
+                            <button type="button" class="delete-btn" title="Supprimer cette image" onclick="if(confirm('Supprimer cette image ?')) document.getElementById('delete-form-{{ loop.index }}').submit();">✕</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p id="no-images-message" style="color: #6B6B6B; text-align: center; padding: 2rem; grid-column: 1/-1;">Aucune image pour le moment</p>
+                {% endif %}
+            </div>
+            
+            <input type="hidden" id="image_order" name="image_order" value="">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="is_published" value="1" {{ creation.isPublished ? 'checked' : '' }}> Publier
+            </label>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn">Enregistrer</button>
+            <a href="{{ path('admin_creations') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

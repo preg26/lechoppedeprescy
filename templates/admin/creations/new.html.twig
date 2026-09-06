@@ -1,0 +1,64 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Nouvelle création{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2 style="margin-bottom: 1.5rem;">Ajouter une création</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Titre *</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Catégorie *</label>
+            <select id="category" name="category" required>
+                <option value="">Sélectionner une catégorie</option>
+                {% for cat in categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Images (plusieurs possibles)</label>
+            <p style="color: #6B6B6B; margin-bottom: 1rem; font-size: 0.9rem;">
+                📸 Sélectionnez vos images puis glissez-déposez pour définir l'ordre d'affichage
+            </p>
+            
+            <div style="margin-bottom: 1rem;">
+                <label for="images" class="upload-label" style="cursor: pointer;">
+                    <span style="font-size: 1.5rem;">📁</span> Choisir des images
+                </label>
+                <input type="file" id="images" name="images[]" accept="image/*" multiple onchange="addNewImagesToGallery(event)" style="display: none;">
+            </div>
+            
+            <div id="images-container" class="images-sortable">
+                <p id="no-images-message" style="color: #6B6B6B; text-align: center; padding: 2rem; grid-column: 1/-1;">Aucune image sélectionnée</p>
+            </div>
+            
+            <small style="color: #6B6B6B; display: block; margin-top: 0.5rem;">
+                Les images défileront au survol sur le site dans l'ordre défini ici.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="is_published" value="1" checked> Publier immédiatement
+            </label>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn">Créer la création</button>
+            <a href="{{ path('admin_creations') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

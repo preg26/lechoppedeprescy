@@ -1,0 +1,24 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Modifier le contenu{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2 style="margin-bottom: 1.5rem;">Modifier "{{ content.key }}"</h2>
+    
+    <form method="post">
+        <div class="form-group">
+            <label for="value">Contenu</label>
+            <textarea id="value" name="value" rows="8" required>{{ content.value }}</textarea>
+            <small style="color: #6B6B6B; display: block; margin-top: 0.5rem;">
+                Section: {{ content.section ?? 'Général' }}
+            </small>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn">Enregistrer</button>
+            <a href="{{ path('admin_content') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

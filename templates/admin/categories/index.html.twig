@@ -1,0 +1,51 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Catégories{% endblock %}
+
+{% block header_actions %}
+    <a href="{{ path('admin_category_new') }}" class="btn">+ Nouvelle catégorie</a>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="search-box">
+        <form method="get" action="{{ path('admin_categories') }}">
+            <input type="text" name="search" placeholder="Rechercher une catégorie..." value="{{ search ?? '' }}">
+        </form>
+    </div>
+    
+    {% if categories %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Slug</th>
+                <th>Description</th>
+                <th>Créations</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td><strong>{{ category.name }}</strong></td>
+                <td><code>{{ category.slug }}</code></td>
+                <td>{{ category.description|slice(0, 50) }}{{ category.description|length > 50 ? '...' : '' }}</td>
+                <td>{{ category.creations|length }}</td>
+                <td>
+                    <div class="actions">
+                        <a href="{{ path('admin_category_edit', {id: category.id}) }}" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Modifier</a>
+                        <form method="post" action="{{ path('admin_category_delete', {id: category.id}) }}" style="display: inline;" onsubmit="return confirm('Supprimer cette catégorie ?');">
+                            <button type="submit" class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Supprimer</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Aucune catégorie pour le moment. <a href="{{ path('admin_category_new') }}">Créer la première catégorie</a></p>
+    {% endif %}
+</div>
+{% endblock %}

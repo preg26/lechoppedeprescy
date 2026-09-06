@@ -1,0 +1,47 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Gestion des contenus{% endblock %}
+
+{% block content %}
+<div class="card">
+    <p style="margin-bottom: 2rem; color: #6B6B6B;">
+        Gérez ici les textes affichés sur les différentes sections du site.
+    </p>
+    
+    <div class="search-box">
+        <form method="get" action="{{ path('admin_content') }}">
+            <input type="text" name="search" placeholder="Rechercher un contenu..." value="{{ search ?? '' }}">
+        </form>
+    </div>
+    
+    {% if contents %}
+    <table>
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Clé</th>
+                <th>Contenu</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for content in contents %}
+            <tr>
+                <td><strong>{{ content.section ?? 'Général' }}</strong></td>
+                <td><code>{{ content.key }}</code></td>
+                <td>{{ content.value|slice(0, 80) }}{{ content.value|length > 80 ? '...' : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_content_edit', {id: content.id}) }}" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Modifier</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Aucun contenu pour le moment.</p>
+    <p style="color: #6B6B6B; margin-top: 1rem;">
+        <small>Les contenus peuvent être créés directement dans la base de données ou via un système de migration.</small>
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

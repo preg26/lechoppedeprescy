@@ -1,0 +1,73 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Demandes de contact{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center;">
+        <form method="get" action="{{ path('admin_contacts') }}" style="display: flex; gap: 1rem; width: 100%;">
+            <input type="text" name="search" placeholder="Rechercher un contact..." value="{{ search ?? '' }}" style="flex: 4; padding: 0.75rem; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 0.95rem;">
+            <select name="status" style="flex: 1; padding: 0.75rem; border: 1px solid #E0E0E0; border-radius: 6px; font-size: 0.95rem;">
+                <option value="pending" {{ status_filter == 'pending' ? 'selected' : '' }}>À traiter</option>
+                <option value="processed" {{ status_filter == 'processed' ? 'selected' : '' }}>Traitées</option>
+                <option value="all" {{ status_filter == 'all' ? 'selected' : '' }}>Toutes</option>
+            </select>
+            <button type="submit" class="btn" style="padding: 0.75rem 1.5rem; white-space: nowrap;">Filtrer</button>
+        </form>
+    </div>
+    
+    {% if contacts %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Message</th>
+                <th>Statut</th>
+                <th style="width: 280px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+            <tr style="{{ contact.status == 'pending' ? 'background: #FFF9F0;' : (contact.status == 'consulted' ? 'background: #F0F9FF;' : '') }}">
+                <td>{{ contact.createdAt|date('d/m/Y H:i') }}</td>
+                <td><strong>{{ contact.name }}</strong></td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone ?? '-' }}</td>
+                <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="{{ contact.message }}">{{ contact.message }}</td>
+                <td>
+                    {% if contact.status == 'pending' %}
+                        <span class="badge badge-warning">À traiter</span>
+                    {% else %}
+                        <span class="badge badge-success">Traitée</span>
+                        <br><small>{{ contact.processedAt|date('d/m/Y H:i') }}</small>
+                    {% endif %}
+                </td>
+                <td>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <a href="{{ path('admin_contact_view', {id: contact.id}) }}" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; text-decoration: none;">Consulter</a>
+                        {% if contact.status == 'pending' %}
+                            <form method="post" action="{{ path('admin_contact_process', {id: contact.id}) }}" style="display: inline;">
+                                <button type="submit" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Traiter</button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ path('admin_contact_pending', {id: contact.id}) }}" style="display: inline;">
+                                <button type="submit" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">À traiter</button>
+                            </form>
+                        {% endif %}
+                        <form method="post" action="{{ path('admin_contact_delete', {id: contact.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette demande ?');">
+                            <button type="submit" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; background: #DC2626;">Supprimer</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Aucune demande de contact pour le moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

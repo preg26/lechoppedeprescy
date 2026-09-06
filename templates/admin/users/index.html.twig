@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Gestion des utilisateurs{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <p style="margin: 0; color: #6B6B6B;">
+            Gérez ici les utilisateurs administrateurs du site.
+        </p>
+        <a href="{{ path('admin_user_new') }}" class="btn">Ajouter un utilisateur</a>
+    </div>
+    
+    {% if users %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td><strong>{{ user.email }}</strong></td>
+                <td>
+                    {% for role in user.roles %}
+                        <span class="badge badge-success">{{ role }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <a href="{{ path('admin_user_edit', {id: user.id}) }}" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Modifier</a>
+                        {% if app.user.id != user.id %}
+                        <form method="post" action="{{ path('admin_user_delete', {id: user.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                            <button type="submit" class="btn" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: #DC2626;">Supprimer</button>
+                        </form>
+                        {% else %}
+                        <span style="padding: 0.5rem 1rem; font-size: 0.85rem; color: #6B6B6B; font-style: italic;">Utilisateur actuel</span>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Aucun utilisateur pour le moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

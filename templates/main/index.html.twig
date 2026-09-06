@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L'échoppe de Prescy - Bijoux sur mesure{% endblock %}
+
+{% block body %}
+<section class="hero">
+    <div class="container">
+        <h1>L'échoppe de Prescy</h1>
+        <p>Atelier de bijouterie artisanale : création sur mesure, réparation, mise à taille et transformations. Ici, chaque geste compte et chaque bijou a une histoire.</p>
+        <a href="{{ path('app_contact') }}" class="btn">Parler de mon bijou</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Mon artisanat</h2>
+        <p>Un savoir-faire au service de vos bijoux</p>
+    </div>
+    
+    <div class="grid grid-3">
+        <div class="feature-box">
+            <div class="feature-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+            </div>
+            <h3>Atelier & gestes</h3>
+            <p>Sur l'établi, je façonne, ajuste et finis chaque pièce à la main, avec le soin du détail et le respect des matières.</p>
+        </div>
+        
+        <div class="feature-box">
+            <div class="feature-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+            </div>
+            <h3>Réparation & ajustement</h3>
+            <p>Chaîne cassée, fermoir, anneau, mise à taille, soudure : je redonne vie à vos bijoux et j'en prends soin comme s'ils étaient miens.</p>
+        </div>
+        
+        <div class="feature-box">
+            <div class="feature-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+            </div>
+            <h3>Valeurs humaines</h3>
+            <p>Plus que des bijoux : une rencontre, une écoute et un partage. On prend le temps d'échanger pour faire juste, beau et durable.</p>
+        </div>
+    </div>
+</section>
+
+<section style="background: linear-gradient(135deg, var(--vert-olive-clair), var(--vert-olive)); color: var(--blanc);">
+    <div class="container" style="text-align: center;">
+        <h2 style="color: var(--blanc); margin-bottom: 2rem;">L'atelier, au service de vos histoires</h2>
+        <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem; line-height: 1.8; color: rgba(255, 255, 255, 0.95);">
+            Je travaille sur commande et sur vos bijoux du quotidien : créations sur mesure, réparations et transformations.
+            L'objectif est simple : préserver ce qui compte, et créer une pièce qui vous ressemble.
+        </p>
+        <a href="{{ path('app_about') }}" class="btn" style="background-color: var(--blanc); color: var(--vert-olive-fonce);">En savoir plus</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Dernières créations</h2>
+        <p>Quelques exemples de réalisations récentes</p>
+    </div>
+    
+    <div class="grid grid-3">
+        <div class="card">
+            <div class="card-image">
+                <div class="card-badge">Création</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Bague sur mesure</h3>
+                <p>Conception, ajustement, finitions personnalisées selon vos souhaits</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-image">
+                <div class="card-badge">Réparation</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <path d="M4 12h16M4 6h16M4 18h16"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Chaîne réparée</h3>
+                <p>Raccord, soudure, remise en état de vos chaînes cassées</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-image">
+                <div class="card-badge">Transformation</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Transformation</h3>
+                <p>D'un bijou existant à une nouvelle pièce qui vous ressemble</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="{{ path('app_gallery') }}" class="btn">Voir toute la galerie</a>
+    </div>
+</section>
+{% endblock %}

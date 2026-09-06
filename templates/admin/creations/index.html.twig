@@ -1,0 +1,68 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Créations{% endblock %}
+
+{% block header_actions %}
+    <a href="{{ path('admin_creation_new') }}" class="btn">+ Nouvelle création</a>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="search-box">
+        <form method="get" action="{{ path('admin_creations') }}">
+            <input type="text" name="search" placeholder="Rechercher une création..." value="{{ search ?? '' }}">
+        </form>
+    </div>
+    
+    {% if creations %}
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for creation in creations %}
+            <tr>
+                <td>
+                    {% if creation.firstImage %}
+                        <img src="{{ asset('uploads/' ~ creation.firstImage) }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                        {% if creation.images|length > 1 %}
+                            <span style="font-size: 0.7rem; color: #6B6B6B; display: block; margin-top: 2px;">+{{ creation.images|length - 1 }}</span>
+                        {% endif %}
+                    {% else %}
+                        <div style="width: 60px; height: 60px; background: #E5E5E5; border-radius: 4px;"></div>
+                    {% endif %}
+                </td>
+                <td><strong>{{ creation.title }}</strong></td>
+                <td>{{ creation.category.name }}</td>
+                <td>{{ creation.createdAt|date('d/m/Y') }}</td>
+                <td>
+                    {% if creation.isPublished %}
+                        <span class="badge badge-success">Publiée</span>
+                    {% else %}
+                        <span class="badge badge-warning">Brouillon</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="actions">
+                        <a href="{{ path('admin_creation_edit', {id: creation.id}) }}" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Modifier</a>
+                        <form method="post" action="{{ path('admin_creation_delete', {id: creation.id}) }}" style="display: inline;" onsubmit="return confirm('Supprimer cette création ?');">
+                            <button type="submit" class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Supprimer</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Aucune création pour le moment. <a href="{{ path('admin_creation_new') }}">Créer la première création</a></p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie - L'échoppe de Prescy{% endblock %}
+
+{% block body %}
+<section class="hero">
+    <div class="container">
+        <h1>Galerie</h1>
+        <p>Créations, réparations et transformations : un aperçu de l'atelier et de quelques projets.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Mes créations</h2>
+        <p>Du sur mesure au sauvetage d'un bijou cassé : chaque pièce passe par l'établi</p>
+    </div>
+
+    <!-- Filtres par catégorie -->
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Tous</button>
+        <button class="filter-btn" data-filter="creation">Créations</button>
+        <button class="filter-btn" data-filter="reparation">Réparations</button>
+        <button class="filter-btn" data-filter="transformation">Transformations</button>
+        <button class="filter-btn" data-filter="atelier">Atelier</button>
+    </div>
+
+    <!-- Grille de créations -->
+    <div class="grid grid-3">
+        <!-- Réparation chaîne -->
+        <div class="card gallery-item" data-category="reparation" style="transition: var(--transition); opacity: 1;">
+            <div class="card-image">
+                <div class="card-badge">Réparation</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <path d="M4 12h16M4 6h16M4 18h16"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Chaîne cassée</h3>
+                <p>Raccord, soudure, remise en état de vos chaînes</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Création -->
+        <div class="card gallery-item" data-category="creation" style="transition: var(--transition); opacity: 1;">
+            <div class="card-image">
+                <div class="card-badge">Création</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Bague sur mesure</h3>
+                <p>Conception, mise à taille, finition personnalisée</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transformation -->
+        <div class="card gallery-item" data-category="transformation" style="transition: var(--transition); opacity: 1;">
+            <div class="card-image">
+                <div class="card-badge">Transformation</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Bijou transformé</h3>
+                <p>Adapter, moderniser, garder l'essentiel d'une pièce existante</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mise à taille -->
+        <div class="card gallery-item" data-category="reparation" style="transition: var(--transition); opacity: 1;">
+            <div class="card-image">
+                <div class="card-badge">Ajustement</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 12h8"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Mise à taille</h3>
+                <p>Ajuster un bijou pour qu'il tombe parfaitement</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fermoir -->
+        <div class="card gallery-item" data-category="reparation" style="transition: var(--transition); opacity: 1;">
+            <div class="card-image">
+                <div class="card-badge">Réparation</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <path d="M12 2v20M2 12h20"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Fermoir / anneau</h3>
+                <p>Remplacement, renfort, sécurité de vos bijoux</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nettoyage -->
+        <div class="card gallery-item" data-category="atelier" style="transition: var(--transition); opacity: 1;">
+            <div class="card-image">
+                <div class="card-badge">Atelier</div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <h3>Nettoyage / retouche</h3>
+                <p>Redonner de l'éclat, corriger une finition</p>
+                <div class="card-footer">
+                    <span class="card-price">Sur devis</span>
+                    <a href="{{ path('app_contact') }}" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Demander</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section sur mesure -->
+    <div style="background: linear-gradient(135deg, var(--vert-olive-clair), var(--vert-olive)); padding: 3rem; border-radius: 10px; color: var(--blanc); text-align: center; margin-bottom: 4rem;">
+        <h2 style="color: var(--blanc); margin-bottom: 2rem; font-size: 2.5rem;">Votre bijou sur mesure</h2>
+        <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem; line-height: 1.8;">
+            Vous ne trouvez pas exactement ce que vous cherchez ? Je crée des bijoux entièrement personnalisés 
+            pour correspondre parfaitement à vos désirs et à votre histoire. Ensemble, nous donnerons vie 
+            à la pièce unique qui vous ressemble.
+        </p>
+        <a href="{{ path('app_contact') }}" class="btn" style="background-color: var(--blanc); color: var(--vert-olive-fonce);">Demander un devis</a>
+    </div>
+
+    <!-- Processus de création / réparation -->
+    <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Le processus à l'atelier</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div style="text-align: center;">
+            <div style="background: var(--bois-clair); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">1</div>
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Message</h3>
+            <p>Tu envoies une photo et une description (réparation, mise à taille, transformation ou création).</p>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="background: var(--bois-clair); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">2</div>
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Diagnostic</h3>
+            <p>À l'atelier, j'évalue la solution la plus durable et je te propose un devis.</p>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="background: var(--bois-clair); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">3</div>
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Réalisation</h3>
+            <p>Réparation, ajustement, transformation ou création : je réalise les opérations nécessaires et les finitions.</p>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="background: var(--bois-clair); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">4</div>
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Remise</h3>
+            <p>On valide le résultat ensemble et ton bijou repart prêt à vivre (et à durer).</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - L'échoppe de Prescy{% endblock %}
+
+{% block body %}
+<section class="hero">
+    <div class="container">
+        <h1>Contact</h1>
+        <p>Création sur mesure, réparation ou transformation : décris ton bijou, je te réponds rapidement.</p>
+    </div>
+</section>
+
+<section class="container" style="padding: 4rem 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+        <!-- Formulaire de contact -->
+        <div>
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Parlons de votre projet</h2>
+            
+            <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div>
+                    <label for="nom" style="display: block; margin-bottom: 0.5rem; color: var(--vert-olive-fonce); font-weight: 500;">Nom complet *</label>
+                    <input type="text" id="nom" name="nom" required style="width: 100%; padding: 12px; border: 2px solid var(--bois-clair); border-radius: 5px; font-family: 'Lato', sans-serif;">
+                </div>
+                
+                <div>
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--vert-olive-fonce); font-weight: 500;">Email *</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 2px solid var(--bois-clair); border-radius: 5px; font-family: 'Lato', sans-serif;">
+                </div>
+                
+                <div>
+                    <label for="telephone" style="display: block; margin-bottom: 0.5rem; color: var(--vert-olive-fonce); font-weight: 500;">Téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" style="width: 100%; padding: 12px; border: 2px solid var(--bois-clair); border-radius: 5px; font-family: 'Lato', sans-serif;">
+                </div>
+                
+                <div>
+                    <label for="type_projet" style="display: block; margin-bottom: 0.5rem; color: var(--vert-olive-fonce); font-weight: 500;">Type de projet *</label>
+                    <select id="type_projet" name="type_projet" required style="width: 100%; padding: 12px; border: 2px solid var(--bois-clair); border-radius: 5px; font-family: 'Lato', sans-serif;">
+                        <option value="">Sélectionnez...</option>
+                        <option value="reparation">Réparation (chaîne, fermoir, soudure...)</option>
+                        <option value="mise-a-taille">Mise à taille</option>
+                        <option value="transformation">Transformation / modernisation</option>
+                        <option value="creation">Création sur mesure</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="budget" style="display: block; margin-bottom: 0.5rem; color: var(--vert-olive-fonce); font-weight: 500;">Budget approximatif</label>
+                    <select id="budget" name="budget" style="width: 100%; padding: 12px; border: 2px solid var(--bois-clair); border-radius: 5px; font-family: 'Lato', sans-serif;">
+                        <option value="">Sélectionnez...</option>
+                        <option value="500-1000">500€ - 1000€</option>
+                        <option value="1000-2000">1000€ - 2000€</option>
+                        <option value="2000-5000">2000€ - 5000€</option>
+                        <option value="5000+">Plus de 5000€</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--vert-olive-fonce); font-weight: 500;">Votre message *</label>
+                    <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 12px; border: 2px solid var(--bois-clair); border-radius: 5px; font-family: 'Lato', sans-serif; resize: vertical;"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Envoyer ma demande</button>
+            </form>
+        </div>
+        
+        <!-- Informations de contact -->
+        <div>
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Me contacter</h2>
+            
+            <div style="background: var(--bois-clair); padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                    <span style="font-size: 1.5rem; margin-right: 1rem;">📍</span>
+                    <div>
+                        <h3 style="color: var(--vert-olive-fonce); margin-bottom: 0.5rem;">Adresse</h3>
+                        <p>Sur rendez-vous<br>Atelier (adresse communiquée lors de l'échange)</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                    <span style="font-size: 1.5rem; margin-right: 1rem;">📞</span>
+                    <div>
+                        <h3 style="color: var(--vert-olive-fonce); margin-bottom: 0.5rem;">Téléphone</h3>
+                        <p>Sur demande</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                    <span style="font-size: 1.5rem; margin-right: 1rem;">✉️</span>
+                    <div>
+                        <h3 style="color: var(--vert-olive-fonce); margin-bottom: 0.5rem;">Email</h3>
+                        <p>Contact via Messenger / message Facebook</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; margin-right: 1rem;">⏰</span>
+                    <div>
+                        <h3 style="color: var(--vert-olive-fonce); margin-bottom: 0.5rem;">Horaires d'ouverture</h3>
+                        <p>Sur rendez-vous<br>Réponse aux messages selon disponibilités</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, var(--vert-olive-clair), var(--vert-olive)); padding: 2rem; border-radius: 10px; color: var(--blanc); text-align: center;">
+                <h3 style="color: var(--blanc); margin-bottom: 1rem;">Message via Facebook</h3>
+                <p style="margin-bottom: 1.5rem;">
+                    Le plus simple : envoie un message avec une photo du bijou et une courte description
+                    (réparation, mise à taille, transformation, création).
+                </p>
+                <a href="#" class="btn" style="background-color: var(--blanc); color: var(--vert-olive-fonce);">Ouvrir Messenger</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section FAQ -->
+<section class="container" style="padding: 4rem 0;">
+    <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Questions fréquentes</h2>
+    
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div style="background: var(--blanc); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Combien de temps prend la création d'un bijou sur mesure ?</h3>
+            <p>En général, comptez entre 4 et 8 semaines selon la complexité du projet. Nous vous tiendrons informé de chaque étape de la création.</p>
+        </div>
+        
+        <div style="background: var(--blanc); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Proposez-vous des réparations de bijoux ?</h3>
+            <p>Oui, je réalise également des réparations et des transformations de bijoux existants. N'hésitez pas à me contacter pour en discuter.</p>
+        </div>
+        
+        <div style="background: var(--blanc); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Quels matériaux utilisez-vous ?</h3>
+            <p>Je travaille principalement avec l'or (jaune, blanc, rose), l'argent 925, et je sélectionne des pierres précieuses et fines de haute qualité.</p>
+        </div>
+        
+        <div style="background: var(--blanc); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Les bijoux sont-ils garantis ?</h3>
+            <p>Oui, tous mes bijoux sont garantis 2 ans contre tout défaut de fabrication. Je fournis également un certificat d'authenticité pour chaque création.</p>
+        </div>
+        
+        <div style="background: var(--blanc); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="color: var(--vert-olive-fonce); margin-bottom: 1rem;">Expédiez-vous dans toute la France ?</h3>
+            <p>Oui, j'expédie mes créations dans toute la France et à l'étranger. Chaque bijou est soigneusement emballé dans un écrin de luxe.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Section témoignages -->
+<section style="background-color: var(--vert-olive-fonce); padding: 4rem 0; color: var(--blanc);">
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--blanc);">Ce que mes clients en disent</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 10px; backdrop-filter: blur(10px);">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                <p style="font-style: italic; margin-bottom: 1rem;">
+                    "Prescy a créé la bague de fiançailles de mes rêves. Son écoute, sa patience et son savoir-faire exceptionnel ont rendu ce moment encore plus spécial."
+                </p>
+                <p style="font-weight: bold;">- Marie L.</p>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 10px; backdrop-filter: blur(10px);">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                <p style="font-style: italic; margin-bottom: 1rem;">
+                    "Un travail d'une qualité incroyable et une personne adorable. J'ai commandé des alliances qui dépassent toutes nos attentes. Merci encore !"
+                </p>
+                <p style="font-weight: bold;">- Thomas et Sophie</p>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 10px; backdrop-filter: blur(10px);">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                <p style="font-style: italic; margin-bottom: 1rem;">
+                    "Le collier que Prescy a créé pour mon anniversaire est magnifique. C'est bien plus qu'un bijou, c'est une œuvre d'art qui me touche profondément."
+                </p>
+                <p style="font-weight: bold;">- Claire M.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

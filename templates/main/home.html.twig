@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L'échoppe de Prescy - Bijouterie artisanale{% endblock %}
+
+{% block body %}
+<!-- Hero Section -->
+<section id="hero" class="hero">
+    <div class="container">
+        <h1>{{ contents.hero.title|default('Chaque geste compte') }}</h1>
+        <p>{{ contents.hero.subtitle|default('Atelier de bijouterie où les mains façonnent l\'argent et l\'or.<br>Création, réparation, transformation — tout commence ici.')|raw }}</p>
+        <a href="#contact" class="btn">{{ contents.hero.cta_text|default('Parlons de vos bijoux') }}</a>
+    </div>
+</section>
+
+<!-- Savoir-faire Section -->
+<section id="savoir-faire" class="section-overlay">
+    <div class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&q=70'); opacity: 0.25;"></div>
+    <div class="container section-content">
+        <div class="section-title">
+            <h2>{{ contents.artisan.title|default('L\'Artisan') }}</h2>
+            <p>{{ contents.artisan.subtitle|default('Pas de machine, pas de série. Juste des mains, des outils, et du temps pour vous.') }}</p>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                    </svg>
+                </div>
+                <h3>{{ contents.artisan.feature1_title|default('Sur l\'établi') }}</h3>
+                <p>{{ contents.artisan.feature1_text|default('Limer, souder, polir. Chaque pièce passe par mes mains. Aucun raccourci, juste la précision du geste répété.') }}</p>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3>{{ contents.artisan.feature2_title|default('Réparer, pas jeter') }}</h3>
+                <p>{{ contents.artisan.feature2_text|default('Chaîne cassée ? Fermoir fragile ? On répare. Parce que vos bijoux méritent une seconde vie.') }}</p>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </div>
+                <h3>{{ contents.artisan.feature3_title|default('Transformer') }}</h3>
+                <p>{{ contents.artisan.feature3_text|default('Un bijou de famille qui ne vous parle plus ? On le réinvente ensemble. Même matière, nouvelle forme, votre histoire.') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Créations Section -->
+<section id="creations" class="section-overlay">
+    <div class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&q=70'); opacity: 0.2;"></div>
+    <div class="container section-content">
+        <div class="section-title">
+            <h2>{{ contents.galerie.title|default('Galerie') }}</h2>
+            <p>{{ contents.galerie.subtitle|default('Quelques exemples. Chaque pièce est unique.') }}</p>
+        </div>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all" data-category="">Tout</button>
+            {% for category in categories %}
+            <button class="filter-btn" data-filter="{{ category.slug }}" data-category="{{ category.id }}">{{ category.name }}</button>
+            {% endfor %}
+        </div>
+        
+        <div class="grid grid-3" id="gallery-grid">
+            {% for creation in latest_creations %}
+            <div class="card gallery-item" data-category="{{ creation.category.slug }}" data-images="{{ creation.images|json_encode|e('html_attr') }}" style="transition: var(--transition); opacity: 1;">
+                <div class="card-image-container">
+                    {% if creation.images %}
+                        {% for key, image in creation.images %}
+                            <div class="card-image {% if key == 0 %}active{% else %}inactive{% endif %}" style="background-image: url('{{ asset('uploads/' ~ image) }}');"></div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="card-image active" style="background-image: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=75');"></div>
+                    {% endif %}
+                    <div class="card-badge">{{ creation.category.name }}</div>
+                    {% if creation.images and creation.images|length > 1 %}
+                        <div class="card-dots">
+                            {% for key, image in creation.images %}
+                                <div class="card-dot {% if key == 0 %}active{% endif %}" data-index="{{ key }}"></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-content">
+                    <h3>{{ creation.title }}</h3>
+                    <p>{{ creation.description }}</p>
+                    <div class="card-footer">
+                        <span class="card-price">Sur devis</span>
+                        <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Discutons-en</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                <p>Aucune création pour le moment. Revenez bientôt !</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;" id="load-more-container">
+            <button id="load-more-btn" class="btn" style="display: none;">Voir plus de créations</button>
+        </div>
+    </div>
+</section>
+
+<!-- Atelier Section -->
+<section id="atelier" class="section-overlay">
+    <div class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1611652022419-a9419f74343a?w=1200&q=70'); opacity: 0.18;"></div>
+    <div class="container section-content">
+        <div class="section-title">
+            <h2>{{ contents.processus.title|default('Processus de Création') }}</h2>
+            <p>{{ contents.processus.subtitle|default('Simple. Direct. Transparent.') }}</p>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="feature-box">
+                <div class="feature-icon" style="background: linear-gradient(135deg, var(--or), var(--or-clair));">1</div>
+                <h3>{{ contents.processus.step1_title|default('Vous m\'envoyez une photo') }}</h3>
+                <p>{{ contents.processus.step1_text|default('Via Messenger, le formulaire du site, ou mail. Avec quelques mots sur votre projet.') }}</p>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-icon" style="background: linear-gradient(135deg, var(--argent), var(--argent-clair)); color: var(--noir);">2</div>
+                <h3>{{ contents.processus.step2_title|default('On échange ensemble') }}</h3>
+                <p>{{ contents.processus.step2_text|default('Je vous explique ce qui est faisable, le tarif, et les délais. Simple et direct.') }}</p>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-icon" style="background: linear-gradient(135deg, var(--vert-principal), var(--vert-clair));">3</div>
+                <h3>{{ contents.processus.step3_title|default('Je crée, vous récupérez') }}</h3>
+                <p>{{ contents.processus.step3_text|default('Je travaille à l\'atelier avec mes mains. Puis on se voit pour la livraison, ou envoi par la poste.') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" style="background: linear-gradient(135deg, rgba(26, 77, 60, 0.95), rgba(39, 113, 90, 0.92)), url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&q=70'); background-size: cover; background-position: center; color: var(--blanc); padding: 5rem 0; position: relative;">
+    <div class="container">
+        <div class="section-title">
+            <h2 style="color: var(--blanc); -webkit-text-fill-color: var(--blanc);">{{ contents.contact.title|default('On parle de vos bijoux ?') }}</h2>
+            <p style="color: rgba(255, 255, 255, 0.9);">{{ contents.contact.subtitle|default('Deux options pour me contacter. Je réponds rapidement.') }}</p>
+        </div>
+        
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="contact-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <!-- Option 1: Facebook Messenger -->
+                <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 12px; text-align: center;">
+                    <h3 style="color: var(--blanc); margin-bottom: 1.5rem;">{{ contents.contact.facebook_title|default('Via Facebook') }}</h3>
+                    <p style="font-size: 1rem; margin-bottom: 1.5rem; color: rgba(255, 255, 255, 0.9);">
+                        {{ contents.contact.facebook_text|default('Le plus rapide pour échanger et voir mes créations') }}
+                    </p>
+                    <a href="https://www.facebook.com/profile.php?id=61578409409953" target="_blank" class="btn" style="background: var(--blanc); color: var(--vert-fonce);">{{ contents.contact.facebook_button|default('Messenger') }}</a>
+                </div>
+
+                <!-- Option 2: Formulaire du site -->
+                <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 12px; text-align: center;">
+                    <h3 style="color: var(--blanc); margin-bottom: 1.5rem;">{{ contents.contact.form_title|default('Via le site') }}</h3>
+                    <p style="font-size: 1rem; margin-bottom: 1.5rem; color: rgba(255, 255, 255, 0.9);">
+                        {{ contents.contact.form_text|default('Envoyez-moi une demande détaillée') }}
+                    </p>
+                    <button onclick="document.getElementById('contact-form').style.display='block'; this.parentElement.parentElement.style.display='none';" class="btn" style="background: var(--blanc); color: var(--vert-fonce);">{{ contents.contact.form_button|default('Formulaire') }}</button>
+                </div>
+            </div>
+
+            <!-- Formulaire caché -->
+            <div id="contact-form" style="display: none; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 3rem; border-radius: 12px;">
+                <h3 style="color: var(--blanc); margin-bottom: 2rem; text-align: center;">Envoyez-moi votre demande</h3>
+                <form method="post" action="{{ path('app_contact_submit') }}">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; color: var(--blanc); margin-bottom: 0.5rem; text-align: left;">Nom *</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 0.8rem; border-radius: 6px; border: none;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; color: var(--blanc); margin-bottom: 0.5rem; text-align: left;">Email *</label>
+                        <input type="email" name="email" required style="width: 100%; padding: 0.8rem; border-radius: 6px; border: none;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; color: var(--blanc); margin-bottom: 0.5rem; text-align: left;">Téléphone</label>
+                        <input type="tel" name="phone" style="width: 100%; padding: 0.8rem; border-radius: 6px; border: none;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; color: var(--blanc); margin-bottom: 0.5rem; text-align: left;">Votre projet *</label>
+                        <textarea name="message" required rows="5" style="width: 100%; padding: 0.8rem; border-radius: 6px; border: none;"></textarea>
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button type="submit" class="btn" style="background: var(--blanc); color: var(--vert-fonce);">Envoyer</button>
+                        <button type="button" onclick="document.getElementById('contact-form').style.display='none'; document.querySelector('.grid').style.display='grid';" class="btn" style="background: rgba(255,255,255,0.2); color: var(--blanc);">Annuler</button>
+                    </div>
+                </form>
+            </div>
+            
+            <p style="font-size: 0.95rem; opacity: 0.8; text-align: center; margin-top: 2rem;">
+                {{ contents.contact.response_time|default('Réponse sous 24h max. Souvent bien avant.') }}
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Administration{% endblock %} - L'échoppe de Prescy</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    
+    {% block stylesheets %}
+    {% endblock %}
+    
+    <!-- External JavaScript -->
+    <script src="{{ asset('js/admin.js') }}" defer></script>
+    
+    {% block javascripts %}
+    {% endblock %}
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>L'échoppe de Prescy</h2>
+        <nav>
+            <a href="{{ path('admin_dashboard') }}" class="{{ app.request.get('_route') == 'admin_dashboard' ? 'active' : '' }}">📊 Tableau de bord</a>
+            
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTENT_MANAGER') %}
+            <a href="{{ path('admin_categories') }}" class="{{ app.request.get('_route') starts with 'admin_categor' ? 'active' : '' }}">
+                🏷️ Catégories
+                {% if menu_counts is defined and menu_counts.categories > 0 %}
+                    <span class="menu-badge">{{ menu_counts.categories }}</span>
+                {% endif %}
+            </a>
+            <a href="{{ path('admin_creations') }}" class="{{ app.request.get('_route') starts with 'admin_creation' ? 'active' : '' }}">
+                💎 Créations
+                {% if menu_counts is defined and menu_counts.creations > 0 %}
+                    <span class="menu-badge">{{ menu_counts.creations }}</span>
+                {% endif %}
+            </a>
+            {% endif %}
+            
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTACT_MANAGER') %}
+            <a href="{{ path('admin_contacts') }}" class="{{ app.request.get('_route') starts with 'admin_contact' ? 'active' : '' }}">
+                📧 Demandes de contact
+                {% if menu_counts is defined and menu_counts.contacts_pending > 0 %}
+                    <span class="menu-badge">{{ menu_counts.contacts_pending }}</span>
+                {% endif %}
+            </a>
+            {% endif %}
+            
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTENT_MANAGER') %}
+            <a href="{{ path('admin_content') }}" class="{{ app.request.get('_route') starts with 'admin_content' ? 'active' : '' }}">📝 Contenus</a>
+            {% endif %}
+            
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin_logo') }}" class="{{ app.request.get('_route') == 'admin_logo' ? 'active' : '' }}">🖼️ Logo</a>
+            <a href="{{ path('admin_users') }}" class="{{ app.request.get('_route') starts with 'admin_user' ? 'active' : '' }}">👥 Utilisateurs</a>
+            {% endif %}
+            
+            <hr style="margin: 1rem 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
+            <a href="{{ path('app_home') }}" target="_blank">🌐 Voir le site</a>
+            <a href="{{ path('app_logout') }}">🚪 Déconnexion</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <h1>{% block page_title %}Administration{% endblock %}</h1>
+            {% block header_actions %}{% endblock %}
+        </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

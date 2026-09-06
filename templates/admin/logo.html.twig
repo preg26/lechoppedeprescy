@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block page_title %}Gestion du logo{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2 style="margin-bottom: 1.5rem;">Logo du site</h2>
+    
+    <div style="margin-bottom: 2rem;">
+        <h3 style="margin-bottom: 1rem;">Logo actuel</h3>
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-width: 300px; border: 2px solid #E5E5E5; padding: 1rem; border-radius: 8px; background: white;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22100%22%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22%3EAucun logo%3C/text%3E%3C/svg%3E';">
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="logo">Nouveau logo (PNG avec fond transparent recommandé)</label>
+            <input type="file" id="logo" name="logo" accept="image/*" required>
+            <small style="color: #6B6B6B; display: block; margin-top: 0.5rem;">
+                Le fichier sera enregistré sous le nom "logo.png" dans public/images/
+            </small>
+        </div>
+
+        <button type="submit" class="btn">Mettre à jour le logo</button>
+    </form>
+</div>
+{% endblock %}
