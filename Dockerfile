@@ -63,6 +63,11 @@ RUN mkdir -p var/cache var/log \
     && chmod -R 775 var
 
 # =========================
+# PHP Configuration
+# =========================
+COPY docker/php.ini /usr/local/etc/php/conf.d/uploads.ini
+
+# =========================
 # Nginx
 # =========================
 RUN rm -f /etc/nginx/sites-enabled/default \
