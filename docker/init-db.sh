@@ -21,7 +21,21 @@ fi
 if [ -z "$DATABASE_URL" ]; then
     echo "⚠️  Attention: DATABASE_URL n'est pas défini dans les variables d'environnement"
     echo "   Assurez-vous de définir DATABASE_URL pour PostgreSQL en production"
-    echo "   Format: postgresql://user:password@host:5432/dbname?serverVersion=16&charset=utf8"
+    echo "   Format: postgresql://user:password@host:5432/dbname?serverVersion=15&charset=utf8"
+    exit 1
+fi
+
+# Vérifier que DATABASE_URL contient serverVersion
+if [[ "$DATABASE_URL" != *"serverVersion="* ]]; then
+    echo "❌ Erreur: DATABASE_URL ne contient pas le paramètre serverVersion"
+    echo ""
+    echo "   DATABASE_URL actuel: $DATABASE_URL"
+    echo ""
+    echo "   Format requis pour PostgreSQL:"
+    echo "   postgresql://user:password@host:5432/dbname?serverVersion=15&charset=utf8"
+    echo ""
+    echo "   Le paramètre serverVersion est OBLIGATOIRE pour éviter les erreurs Doctrine"
+    echo "   Exemple: ?serverVersion=15 pour PostgreSQL 15"
     exit 1
 fi
 

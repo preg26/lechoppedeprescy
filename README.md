@@ -165,7 +165,7 @@ Pour le déploiement en production avec PostgreSQL :
 # Variables obligatoires
 APP_ENV=prod
 APP_SECRET=<votre-secret-généré>
-DATABASE_URL=postgresql://user:password@host:5432/dbname?serverVersion=16&charset=utf8
+DATABASE_URL=postgresql://user:password@host:5432/dbname?serverVersion=15&charset=utf8
 ```
 
 ### Déploiement Docker
@@ -176,7 +176,7 @@ DATABASE_URL=postgresql://user:password@host:5432/dbname?serverVersion=16&charse
 docker run -d \
   -e APP_ENV=prod \
   -e APP_SECRET=votre-secret \
-  -e DATABASE_URL=postgresql://user:password@host:5432/dbname?serverVersion=16&charset=utf8 \
+  -e DATABASE_URL=postgresql://user:password@host:5432/dbname?serverVersion=15&charset=utf8 \
   -p 80:80 \
   ghcr.io/preg26/lechoppedeprescy:latest
 ```
