@@ -39,8 +39,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/preg26/lechopedeprescy:latest
-            ghcr.io/preg26/lechopedeprescy:${{ github.sha }}
+            ghcr.io/preg26/lechoppedeprescy:latest
+            ghcr.io/preg26/lechoppedeprescy:${{ github.sha }}
           build-args: |
             BUILD_ID=${{ github.run_id }}-${{ github.run_attempt }}
           cache-from: type=gha
