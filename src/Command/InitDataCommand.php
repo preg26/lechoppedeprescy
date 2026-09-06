@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -24,9 +25,24 @@ class InitDataCommand extends Command
         parent::__construct();
     }
 
+    protected function configure(): void
+    {
+        $this->addOption(
+            'production',
+            'p',
+            InputOption::VALUE_NONE,
+            'Mode production : initialise uniquement les contenus et catégories (sans créations)'
+        );
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        $isProduction = $input->getOption('production');
+
+        if ($isProduction) {
+            $io->note('Mode PRODUCTION : initialisation sans créations ni demandes de contact');
+        }
 
         // 1. Créer les contenus de page
         $io->section('Création des contenus de page');
@@ -38,13 +54,17 @@ class InitDataCommand extends Command
         $categories = $this->createCategories();
         $io->success('Catégories créées');
 
-        // 3. Créer les créations
-        $io->section('Création des créations (12 par catégorie)');
-        $this->createCreations($categories);
-        $io->success('Créations créées');
-
-        $io->success('Base de données initialisée avec succès !');
-        $io->note('Total : ' . count($categories) . ' catégories et ' . (count($categories) * 12) . ' créations');
+        // 3. Créer les créations (sauf en mode production)
+        if (!$isProduction) {
+            $io->section('Création des créations (12 par catégorie)');
+            $this->createCreations($categories);
+            $io->success('Créations créées');
+            $io->success('Base de données initialisée avec succès !');
+            $io->note('Total : ' . count($categories) . ' catégories et ' . (count($categories) * 12) . ' créations');
+        } else {
+            $io->success('Base de données initialisée avec succès !');
+            $io->note('Total : ' . count($categories) . ' catégories (créations vides pour production)');
+        }
 
         return Command::SUCCESS;
     }
