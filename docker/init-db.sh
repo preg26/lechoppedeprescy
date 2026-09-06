@@ -17,7 +17,16 @@ if [ ! -f ".env" ]; then
     exit 1
 fi
 
+# Vérifier que DATABASE_URL est défini
+if [ -z "$DATABASE_URL" ]; then
+    echo "⚠️  Attention: DATABASE_URL n'est pas défini dans les variables d'environnement"
+    echo "   Assurez-vous de définir DATABASE_URL pour PostgreSQL en production"
+    echo "   Format: postgresql://user:password@host:5432/dbname?serverVersion=16&charset=utf8"
+    exit 1
+fi
+
 echo "✅ Environnement configuré"
+echo "   Base de données: $(echo $DATABASE_URL | sed 's/:.*//' | sed 's|.*://||')"
 
 echo ""
 echo "🗄️  Création de la base de données..."

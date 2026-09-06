@@ -157,13 +157,50 @@ php bin/console doctrine:migrations:migrate
 
 ## 📦 Déploiement
 
-Pour le déploiement en production :
+### Variables d'environnement requises
+
+Pour le déploiement en production avec PostgreSQL :
+
+```bash
+# Variables obligatoires
+APP_ENV=prod
+APP_SECRET=<votre-secret-généré>
+DATABASE_URL=postgresql://user:password@host:5432/dbname?serverVersion=16&charset=utf8
+```
+
+### Déploiement Docker
+
+1. **Build de l'image** (via GitHub Actions automatiquement)
+2. **Lancer le container avec les variables d'environnement** :
+```bash
+docker run -d \
+  -e APP_ENV=prod \
+  -e APP_SECRET=votre-secret \
+  -e DATABASE_URL=postgresql://user:password@host:5432/dbname?serverVersion=16&charset=utf8 \
+  -p 80:80 \
+  ghcr.io/preg26/lechoppedeprescy:latest
+```
+
+3. **Initialiser la base de données** :
+```bash
+# Entrer dans le container
+docker exec -it <container_id> bash
+
+# Lancer le script d'initialisation
+bash /var/www/app/docker/init-db.sh
+
+# Créer un utilisateur admin
+php bin/console app:create-user
+```
+
+### Déploiement manuel
 
 1. Configurer les variables d'environnement dans `.env.local`
 2. Passer en mode production : `APP_ENV=prod`
 3. Installer les dépendances : `composer install --no-dev --optimize-autoloader`
 4. Vider le cache : `php bin/console cache:clear --env=prod`
 5. Exécuter les migrations : `php bin/console doctrine:migrations:migrate --no-interaction`
+6. Initialiser les données : `php bin/console app:init-data --production`
 
 ## 📄 Licence
 
