@@ -76,6 +76,12 @@ RUN rm -f /etc/nginx/sites-enabled/default \
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 # =========================
+# Entrypoint script
+# =========================
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# =========================
 # Build marker
 # =========================
 ARG BUILD_ID
@@ -83,4 +89,4 @@ RUN echo "BUILD_ID=${BUILD_ID}" > /build-id.txt
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
+ENTRYPOINT ["/entrypoint.sh"]
